@@ -1,0 +1,21 @@
+
+<article class="product" *ngFor="let product of products">
+    <div class="product-header">
+        <h3 class="product-header-title">
+            {{product.name}} 
+            <!-- <img src="" alt=""> -->
+        </h3>
+        <p>{{product.species || "Human" }}</p>
+        <p>{{product.movies}}</p>
+    </div>
+    <div class="product-body">
+        <h4>$ {{product.mass}}</h4>
+
+    </div>
+    <div class="product-footer">
+        <!-- <button class="product-footer-button" (click)="cartaddToCart(product)">Add to Cart</button> -->
+        <button class="product-footer-button" (click)="addToCart(product)">
+            <i class="fa-solid fa-basket-shopping"></i>
+        </button>
+    </div>
+</article>

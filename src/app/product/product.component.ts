@@ -1,23 +1,26 @@
-import { Component,OnInit } from '@angular/core';
-import { ProductService } from '../product.service';
+import { Component, OnInit } from '@angular/core';
+import { StoreService } from '../store.service';
 import { forkJoin } from 'rxjs';
+import { Product } from '../product';
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  selector: 'app-product',
+  templateUrl: './product.component.html',
+  styleUrls: ['./product.component.css']
 })
-export class ProductListComponent implements OnInit {
-  cartItems: any [] = [];
-  products: any [] = [];
-  movies: any [] = [];
+export class ProductComponent implements OnInit {
+
+  products: any[] = [];
   species: any[] = [];
-constructor( private productService : ProductService) { };
+  movies: any[]= [];
+  constructor(private storeService: StoreService) { }
+
   ngOnInit(): void {
     forkJoin([
-      this.productService.getStarWarsCharacters(),
-      this.productService.getStarWarsMovies(),
-      this.productService.getSpeciessForCharacter(),
+      this.storeService.getStarWarsCharacters(),
+      this.storeService.getStarWarsMovies(),
+      this.storeService.getSpeciesForCharacter(),
+    
 
     ]).subscribe(
       ([productsData, moviesData,speciesData]: [any, any, any]) => {
@@ -37,8 +40,9 @@ constructor( private productService : ProductService) { };
         console.error('Error al obtener datos:', error);
       }
     );
+    
   }
-  getMoviesForCharacter(films: string[]): string{
+    getMoviesForCharacter(films: string[]): string{
     return films.map((film) => this.getMovieName(film)).join(', ');
  
   }
@@ -47,15 +51,6 @@ constructor( private productService : ProductService) { };
     const movie = this.movies.find((movie) => movie.url === filmURL);
     return movie ? movie.title : 'Pelicula Desconocida';
   }
-
-  addToCart(item: any) : void{
-    this.cartItems.push(item);
-  }
-
-  // getSpecieName(specieURL: string): string {
-  //   const specie = this.species.find((specie) => specie.url === specieURL);
-  //   return specie ? specie.name : 'Especie Desconocida';
-  // }
 
 
   getSpeciesNames(speciesUrls: string[]): string {
@@ -69,6 +64,16 @@ constructor( private productService : ProductService) { };
   
     return speciesNames.join(', ');
   }
+
+  addToCart(product: Product){
+
+     return this.storeService.addProduct(product);
+  }
+  
 }
+
+
+  
+
 
 
