@@ -39,7 +39,7 @@ p{
     position: absolute;
     background-color: white;
     border-radius: 0,5rem;
-    border: 1px solid red;
+    border: 1px solid gray;
     right: 0px;
     top: 83px;
     min-width: 40%;

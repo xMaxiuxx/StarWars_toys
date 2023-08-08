@@ -4,7 +4,7 @@
             <p>{{product.name}}</p>
             <div class="product-body-info">
                 <p>$ {{product.mass}}</p>
-                <p>{{product.cantidad | currency:'USD,EUR,ARS'}}</p>
+                <!-- <p>{{product.cantidad }}</p> -->
             </div>
 
         </div>
@@ -22,7 +22,14 @@
     </div>
 </article>
 <div class="cartTotal">
+    <select class="select">
+        <option disabled selected>Elegir Moneda de Cambio</option>
+        <option value="USD$">{{ totalCart() }} $$ Dolares</option> Dolares
+        <option value="€">{{ totalCart() *  0.9 }} € Euros</option> 
+        <option value="ARS$ Oficial">{{ totalCart() * 293 }}$ ARS Dolar Oficial</option>
+        <option value="ARS$ Blue">{{ totalCart() * 596 }}  $ ARS Dolar Blue</option>
+      </select>
     <p class="cartTotal-total">Total:$ {{totalCart()}}</p>
 </div>
-<button class="cart-btn"> Ir a mis compras </button>
+<button class="cart-btn"> Ir a mi carrito </button>
 </div>
